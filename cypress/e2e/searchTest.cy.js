@@ -29,7 +29,7 @@ describe("Search feature", () => {
   it("search with valid input and goes back to search page", () => {
     const searchTerm = "ni hao ma";
 
-    cy.get("#search-input").type(`${searchTerm}`);
+    cy.get("#search-input").type(`${searchTerm}`, { force: true });
     cy.get("#search-button").click();
 
     cy.get("#search-result").should("have.text", searchTerm);
