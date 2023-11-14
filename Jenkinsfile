@@ -20,26 +20,25 @@ pipeline {
     }
 
     stages {
-        // stage('Install dependencies'){
-        //     agent {
-        //         // this image provides everything needed to run Cypress
-        //         docker {
-        //             image 'cypress/base:20.9.0'
-        //         }
-        //     }
-        //     steps{
-        //         script{
-        //         }
-        //     }
-        // }
 
-        // stage('OWASP DependencyCheck') {
-        //     steps {
-        //         dependencyCheck additionalArguments: '--format HTML --format XML', odcInstallation: 'OWASP Dependency-Check Vulnerabilities'
-        //     }
-        // }
+        stage('OWASP DependencyCheck') {
+            steps {
+                dependencyCheck additionalArguments: '--format HTML --format XML', odcInstallation: 'OWASP Dependency-Check Vulnerabilities'
+            }
+        }
         
-        stage ('Cypress UI Test'){
+        stage('Code Quality Check via SonarQube') {
+            steps {
+                script {
+                    def scannerHome = tool 'SonarQube'
+                    withSonarQubeEnv('SonarQube') {
+                        sh "${scannerHome}/bin/sonar-scanner -Dsonar.projectKey=quiz -Dsonar.sources=. -Dsonar.host.url=http://172.19.0.3:9000"
+                    }
+                }
+            }
+        }
+
+		stage ('Cypress UI Test'){
             agent {
                 // this image provides everything needed to run Cypress
                 docker {
@@ -61,16 +60,6 @@ pipeline {
                     sh 'npx cypress run --browser ${BROWSER} --spec cypress/e2e/${SPEC}'
                 }
                 
-            }
-        }
-        stage('Code Quality Check via SonarQube') {
-            steps {
-                script {
-                    def scannerHome = tool 'SonarQube'
-                    withSonarQubeEnv('SonarQube') {
-                        sh "${scannerHome}/bin/sonar-scanner -Dsonar.projectKey=quiz -Dsonar.sources=. -Dsonar.host.url=http://172.19.0.3:9000"
-                    }
-                }
             }
         }
     }
