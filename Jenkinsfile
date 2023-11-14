@@ -30,13 +30,13 @@ pipeline {
             agent {
                 // this image provides everything needed to run Cypress
                 docker {
-					image 'cypress/base:20.9.0'
+                    image 'cypress/base:20.9.0'
                 }
             }
             steps {
                 script{
 
-                    sh 'npm ci'
+                    sh 'npm i'
 
                     dir("${env.WORKSPACE}"){
                         sh "pwd"
