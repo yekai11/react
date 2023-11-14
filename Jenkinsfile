@@ -10,7 +10,12 @@ def getBuildUser() {
 }
 
 pipeline {
-	agent any
+	agent {
+		// this image provides everything needed to run Cypress
+		docker {
+		image 'cypress/base:20.9.0'
+		}
+	}
 	environment {
         BUILD_USER = ''
     }
@@ -19,6 +24,7 @@ pipeline {
         choice(name: 'BROWSER', choices: ['chrome', 'edge', 'firefox'], description: 'Pick the web browser you want to use to run your scripts')
     }
 	stages {
+
 		stage('OWASP DependencyCheck') {
 			steps {
 				dependencyCheck additionalArguments: '--format HTML --format XML', odcInstallation: 'OWASP Dependency-Check Vulnerabilities'
@@ -27,8 +33,10 @@ pipeline {
 
 		stage ('Cypress UI Test'){
 			steps {
-				sh dir("client")
-                sh "npm i"
+				echo (sh 'pwd')
+				sh 'cd client'
+				sh 'npm ci'
+				sh 'npm start'
                 sh "npx cypress run --browser ${BROWSER} --spec ${SPEC}"
             }
 		}
