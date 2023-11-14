@@ -33,9 +33,8 @@ pipeline {
 
 		stage ('Cypress UI Test'){
 			steps {
-				echo pwd
-				dir('/var/jenkins_home/workspace/cypress-test/client'){
-					sh pwd
+				dir("${env.WORKSPACE}/cypress-test"){
+					sh "pwd"
 				}
 				sh 'npm i'
 				sh 'npm start'
