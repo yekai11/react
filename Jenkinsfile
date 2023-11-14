@@ -24,10 +24,6 @@ pipeline {
         choice(name: 'BROWSER', choices: ['chrome', 'edge', 'firefox'], description: 'Pick the web browser you want to use to run your scripts')
     }
 	stages {
-		cache:
-			paths:
-				- ~/.cache
-
 		stage('OWASP DependencyCheck') {
 			steps {
 				dependencyCheck additionalArguments: '--format HTML --format XML', odcInstallation: 'OWASP Dependency-Check Vulnerabilities'
@@ -37,8 +33,9 @@ pipeline {
 		stage ('Cypress UI Test'){
 			steps {
 				script{
+					
 					dir("${env.WORKSPACE}"){
-					sh "pwd"
+						sh "pwd"
 					}
 					sh 'npm ci'
 					stash name: 'npm-cache', includes: '.cache'
