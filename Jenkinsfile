@@ -29,7 +29,7 @@ pipeline {
             }
             steps{
                 script{
-                    sh 'npm ci'
+                    sh 'npm i'
                 }
             }
         }
