@@ -61,7 +61,7 @@ pipeline {
                     script {
                     def scannerHome = tool 'SonarQube';
                         withSonarQubeEnv('SonarQube') {
-                        sh "${scannerHome}/bin/sonar-scanner -Dsonar.projectKey=react-express -Dsonar.sources=. -Dsonar.host.url=http://172.19.0.4:9000"
+                        sh "${scannerHome}/bin/sonar-scanner -Dsonar.projectKey=quiz -Dsonar.sources=. -Dsonar.host.url=http://172.19.0.4:9000"
                         }
                     }
                 }
