@@ -21,15 +21,9 @@ pipeline {
     }
 	parameters {
         string(name: 'SPEC', defaultValue: 'searchTest.cy.js')
-        choice(name: 'BROWSER', choices: ['chrome', 'edge', 'firefox'], description: 'Pick the web browser you want to use to run your scripts')
+        choice(name: 'BROWSER', choices: ['electron'], description: 'Pick the web browser you want to use to run your scripts')
     }
 	stages {
-		stage('Checkout SCM') {
-			steps {
-				echo 'Checkout git repository'
-			}
-		}
-
 		stage('Install dependencies'){
 			steps{
 				script{
