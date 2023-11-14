@@ -20,43 +20,43 @@ pipeline {
     }
 
 	stages {
-		// stage('Install dependencies'){
-		// 	steps{
-		// 		script{
-		// 			sh 'npm ci'
-		// 		}
-		// 	}
-		// }
+		stage('Install dependencies'){
+			steps{
+				script{
+					sh 'npm ci'
+				}
+			}
+		}
 
-		// stage('OWASP DependencyCheck') {
-		// 	steps {
-		// 		dependencyCheck additionalArguments: '--format HTML --format XML', odcInstallation: 'OWASP Dependency-Check Vulnerabilities'
-		// 	}
-		// }
+		stage('OWASP DependencyCheck') {
+			steps {
+				dependencyCheck additionalArguments: '--format HTML --format XML', odcInstallation: 'OWASP Dependency-Check Vulnerabilities'
+			}
+		}
 		
-		// stage ('Cypress UI Test'){
-			// agent {
-			// // this image provides everything needed to run Cypress
-			// docker {
-			// image 'cypress/base:20.9.0'
-			// }
-			// }
-		// 	steps {
-		// 		script{
+		stage ('Cypress UI Test'){
+			agent {
+				// this image provides everything needed to run Cypress
+				docker {
+					image 'cypress/base:20.9.0'
+				}
+			}
+			steps {
+				script{
 
-		// 			dir("${env.WORKSPACE}"){
-		// 				sh "pwd"
-		// 			}
+					dir("${env.WORKSPACE}"){
+						sh "pwd"
+					}
 
-		// 			sh 'npm start > react_app.log 2>&1 &'
+					sh 'npm start > react_app.log 2>&1 &'
 
-		// 			sleep(time: 5, unit: 'SECONDS')
+					sleep(time: 5, unit: 'SECONDS')
 
-		// 			sh 'npx cypress run --browser ${BROWSER} --spec cypress/e2e/${SPEC}'
-		// 		}
+					sh 'npx cypress run --browser ${BROWSER} --spec cypress/e2e/${SPEC}'
+				}
 				
-        //     }
-		// }
+            }
+		}
 		stage('Code Quality Check via SonarQube') {
 			steps {
 				script {
@@ -76,7 +76,6 @@ pipeline {
             //The script step takes a block of Scripted Pipeline and executes that in the Declarative Pipeline. 
             //For most use-cases, the script step should be unnecessary in Declarative Pipelines, but it can provide
             //a useful "escape hatch." script blocks of non-trivial size and/or complexity should be moved into Shared Libraries instead.
-			recordIssues enabledForFailure: true, tool: sonarQube()
             script {
                 BUILD_USER = getBuildUser()
             }
