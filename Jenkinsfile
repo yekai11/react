@@ -9,8 +9,6 @@ def getBuildUser() {
     return currentBuild.rawBuild.getCause(Cause.UserIdCause).getUserId()
 }
 
-tools {nodejs "Node21"}
-
 pipeline {
 	agent any
 	environment {
