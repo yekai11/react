@@ -24,12 +24,16 @@ pipeline {
         choice(name: 'BROWSER', choices: ['chrome', 'edge', 'firefox'], description: 'Pick the web browser you want to use to run your scripts')
     }
 	stages {
+		stage('Checkout SCM') {
+			steps {
+				echo 'Checkout git repository'
+			}
+		}
 
 		stage('Install dependencies'){
 			steps{
 				script{
 					sh 'npm ci'
-					stash name: 'npm-cache', includes: '.cache'
 				}
 			}
 		}
