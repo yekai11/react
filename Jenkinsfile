@@ -25,13 +25,13 @@ pipeline {
     }
 
 	stages {
-		stage('Install dependencies'){
-			steps{
-				script{
-					sh 'npm ci'
-				}
-			}
-		}
+		// stage('Install dependencies'){
+		// 	steps{
+		// 		script{
+		// 			sh 'npm ci'
+		// 		}
+		// 	}
+		// }
 
 		stage('OWASP DependencyCheck') {
 			steps {
