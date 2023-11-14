@@ -9,6 +9,8 @@ def getBuildUser() {
     return currentBuild.rawBuild.getCause(Cause.UserIdCause).getUserId()
 }
 
+tools {nodejs "Node21"}
+
 pipeline {
 	agent any
 	environment {
@@ -27,6 +29,7 @@ pipeline {
 
 		stage ('Cypress UI Test'){
 			steps {
+				sh dir("client")
                 sh "npm i"
                 sh "npx cypress run --browser ${BROWSER} --spec ${SPEC}"
             }
