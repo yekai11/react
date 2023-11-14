@@ -23,3 +23,13 @@
 //
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
+Cypress.Commands.add("hideWebpackOverlay", () => {
+  cy.document().then((doc) => {
+    const overlayElement = doc.getElementById(
+      "webpack-dev-server-client-overlay"
+    );
+    if (overlayElement) {
+      overlayElement.style.display = "none";
+    }
+  });
+});
