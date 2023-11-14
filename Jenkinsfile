@@ -10,12 +10,7 @@ def getBuildUser() {
 }
 
 pipeline {
-	agent {
-		// this image provides everything needed to run Cypress
-		docker {
-		image 'cypress/base:20.9.0'
-		}
-	}
+	agent any
 	environment {
         BUILD_USER = ''
     }
@@ -40,6 +35,12 @@ pipeline {
 		}
 		
 		// stage ('Cypress UI Test'){
+			// agent {
+			// // this image provides everything needed to run Cypress
+			// docker {
+			// image 'cypress/base:20.9.0'
+			// }
+			// }
 		// 	steps {
 		// 		script{
 
