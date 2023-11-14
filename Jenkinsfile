@@ -33,7 +33,7 @@ pipeline {
 
 		stage ('Cypress UI Test'){
 			steps {
-				dir("${env.WORKSPACE}/cypress-test"){
+				dir("${env.WORKSPACE}"){
 					sh "pwd"
 				}
 				sh 'npm i'
