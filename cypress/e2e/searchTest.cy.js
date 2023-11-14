@@ -18,6 +18,7 @@ describe("Search feature", () => {
     // Since we want to visit the same URL at the start of all our tests,
     // we include it in our beforeEach function so that it runs before each test
     cy.visit("http://localhost:3000");
+    cy.hideWebpackOverlay();
   });
 
   it("displays default search page", () => {
@@ -28,7 +29,6 @@ describe("Search feature", () => {
 
   it("search with valid input and goes back to search page", () => {
     const searchTerm = "ni hao ma";
-    cy.hideWebpackOverlay();
     cy.get("#search-input").type(`${searchTerm}`, { force: true });
     cy.get("#search-button").click();
 
