@@ -37,7 +37,11 @@ pipeline {
 					sh "pwd"
 				}
 				sh 'npm i'
+				
 				sh 'npm start'
+
+				sleep(time: 30, unit: 'SECONDS')
+
                 sh "npx cypress run --browser ${BROWSER} --spec ${SPEC}"
             }
 		}
