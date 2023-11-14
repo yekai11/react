@@ -40,5 +40,8 @@
   },
   "devDependencies": {
     "cypress": "^13.5.0"
+  },
+  "resolutions": {
+    "react-error-overlay": "6.0.9"
   }
 }
