@@ -33,7 +33,7 @@ pipeline {
 
 		stage ('Cypress UI Test'){
 			steps {
-				echo (sh 'pwd')
+				echo pwd
 				sh 'cd client'
 				sh 'npm ci'
 				sh 'npm start'
