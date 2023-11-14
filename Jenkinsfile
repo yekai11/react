@@ -59,7 +59,7 @@ pipeline {
 		stage('Code Quality Check via SonarQube') {
 			steps {
 				script {
-				def scannerHome = tool 'SonarQube';
+					def scannerHome = tool 'SonarQube'
 					withSonarQubeEnv('SonarQube') {
 						sh "${scannerHome}/bin/sonar-scanner -Dsonar.projectKey=quiz -Dsonar.sources=. -Dsonar.host.url=http://172.19.0.4:9000"
 					}
