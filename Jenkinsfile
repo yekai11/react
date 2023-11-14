@@ -36,18 +36,21 @@ pipeline {
 
 		stage ('Cypress UI Test'){
 			steps {
-				dir("${env.WORKSPACE}"){
+				script{
+					dir("${env.WORKSPACE}"){
 					sh "pwd"
+					}
+					sh 'npm ci'
+					stash name: 'npm-cache', includes: '.cache'
+
+					sh 'npm start > react_app.log 2>&1 &'
+
+					sleep(time: 5, unit: 'SECONDS')
+
+					unstash 'npm-cache'
+					sh 'npm run cypress:open --browser ${BROWSER} --spec ${SPEC}'
 				}
-				sh 'npm ci'
-				stash name: 'npm-cache', includes: '.cache'
-
-				sh 'npm start > react_app.log 2>&1 &'
-
-				sleep(time: 5, unit: 'SECONDS')
 				
-	 			unstash 'npm-cache'
-	 			sh 'npm run cypress:open --browser ${BROWSER} --spec ${SPEC}'
             }
 		}
 	}	
