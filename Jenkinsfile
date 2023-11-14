@@ -20,19 +20,18 @@ pipeline {
     }
 
     stages {
-        stage('Install dependencies'){
-            agent {
-                // this image provides everything needed to run Cypress
-                docker {
-                    image 'cypress/base:20.9.0'
-                }
-            }
-            steps{
-                script{
-                    sh 'npm i'
-                }
-            }
-        }
+        // stage('Install dependencies'){
+        //     agent {
+        //         // this image provides everything needed to run Cypress
+        //         docker {
+        //             image 'cypress/base:20.9.0'
+        //         }
+        //     }
+        //     steps{
+        //         script{
+        //         }
+        //     }
+        // }
 
         stage('OWASP DependencyCheck') {
             steps {
@@ -49,6 +48,8 @@ pipeline {
             }
             steps {
                 script{
+                    sh 'npm i'
+
                     dir("${env.WORKSPACE}"){
                         sh "pwd"
                     }
