@@ -20,16 +20,18 @@ pipeline {
         BUILD_USER = ''
     }
 	parameters {
-        string(name: 'SPEC', defaultValue: 'cypress/e2e/searchTest.cy.js')
+        string(name: 'SPEC', defaultValue: 'searchTest.cy.js')
         choice(name: 'BROWSER', choices: ['chrome', 'edge', 'firefox'], description: 'Pick the web browser you want to use to run your scripts')
     }
 	stages {
-		stage('Install dependencies'){
-			script{
-				sh npm ci
-				stash name: 'npm-cache', includes: '.cache'
-			}
 
+		stage('Install dependencies'){
+			steps{
+				script{
+					sh 'npm ci'
+					stash name: 'npm-cache', includes: '.cache'
+				}
+			}
 		}
 
 		stage('OWASP DependencyCheck') {
@@ -50,7 +52,7 @@ pipeline {
 
 					sleep(time: 5, unit: 'SECONDS')
 
-					sh 'npx cypress run --browser ${BROWSER} --spec ${SPEC}'
+					sh 'npx cypress run --browser ${BROWSER} --spec cypress/e2e/${SPEC}'
 				}
 				
             }
