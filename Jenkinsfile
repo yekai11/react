@@ -24,6 +24,9 @@ pipeline {
         choice(name: 'BROWSER', choices: ['chrome', 'edge', 'firefox'], description: 'Pick the web browser you want to use to run your scripts')
     }
 	stages {
+		cache:
+			paths:
+				- ~/.cache
 
 		stage('OWASP DependencyCheck') {
 			steps {
@@ -36,13 +39,15 @@ pipeline {
 				dir("${env.WORKSPACE}"){
 					sh "pwd"
 				}
-				sh 'npm i'
+				sh 'npm ci'
+				stash name: 'npm-cache', includes: '.cache'
 
 				sh 'npm start > react_app.log 2>&1 &'
 
 				sleep(time: 5, unit: 'SECONDS')
-	 
-	 			sh './node_modules/.bin/cypress run --browser ${BROWSER} --spec ${SPEC}'
+				
+	 			unstash 'npm-cache'
+	 			sh 'npm run cypress:open --browser ${BROWSER} --spec ${SPEC}'
             }
 		}
 	}	
