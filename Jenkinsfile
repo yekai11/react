@@ -37,12 +37,12 @@ pipeline {
 					sh "pwd"
 				}
 				sh 'npm i'
-				
-				sh 'npm start'
 
-				sleep(time: 30, unit: 'SECONDS')
+				sh 'npm start > react_app.log 2>&1 &'
 
-                sh "npx cypress run --browser ${BROWSER} --spec ${SPEC}"
+				sleep(time: 5, unit: 'SECONDS')
+	 
+	 			sh './node_modules/.bin/cypress run --browser ${BROWSER} --spec ${SPEC}'
             }
 		}
 	}	
