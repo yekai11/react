@@ -20,7 +20,7 @@ pipeline {
         BUILD_USER = ''
     }
 	parameters {
-        string(name: 'SPEC', defaultValue: 'client/cypress/e2e/searchTest.cy.js')
+        string(name: 'SPEC', defaultValue: 'cypress/e2e/searchTest.cy.js')
         choice(name: 'BROWSER', choices: ['chrome', 'edge', 'firefox'], description: 'Pick the web browser you want to use to run your scripts')
     }
 	stages {
@@ -35,7 +35,7 @@ pipeline {
 			steps {
 				echo pwd
 				sh 'cd client'
-				sh 'npm ci'
+				sh 'npm i'
 				sh 'npm start'
                 sh "npx cypress run --browser ${BROWSER} --spec ${SPEC}"
             }
