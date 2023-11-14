@@ -17,7 +17,7 @@ describe("Search feature", () => {
     // so we must tell it to visit our website with the `cy.visit()` command.
     // Since we want to visit the same URL at the start of all our tests,
     // we include it in our beforeEach function so that it runs before each test
-    cy.visit("http://localhost:3000");
+    cy.visit("http://localhost:3001");
   });
 
   it("displays default search page", () => {
@@ -29,7 +29,8 @@ describe("Search feature", () => {
   it("search with valid input and goes back to search page", () => {
     const searchTerm = "ni hao ma";
 
-    cy.get("#search-input").type(`${searchTerm}{enter}`);
+    cy.get("#search-input").type(`${searchTerm}`);
+    cy.get("#search-button").click();
 
     cy.get("#search-result").should("have.text", searchTerm);
     cy.get("#back-button").click();
