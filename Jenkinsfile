@@ -38,7 +38,7 @@ pipeline {
             }
         }
 
-		stage ('Cypress UI Test'){
+        stage ('Cypress UI Test'){
             agent {
                 // this image provides everything needed to run Cypress
                 docker {

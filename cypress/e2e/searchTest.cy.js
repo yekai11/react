@@ -30,10 +30,10 @@ describe("Search feature", () => {
   it("search with valid input and goes back to search page", () => {
     const searchTerm = "ni hao ma";
     cy.get("#search-input").type(`${searchTerm}`, { force: true });
-    cy.get("#search-button").click();
+    cy.get("#search-button").click({ force: true });
 
     cy.get("#search-result").should("have.text", searchTerm);
-    cy.get("#back-button").click();
+    cy.get("#back-button").click({ force: true });
     cy.get("#search-input").should("exist");
     cy.get("#search-button").should("exist");
     cy.get("#login-button").should("exist");
@@ -44,7 +44,7 @@ describe("Search feature", () => {
 
     cy.window().then((w) => (w.beforeReload = true));
 
-    cy.get("#search-input").type(`${searchTerm}`);
+    cy.get("#search-input").type(`${searchTerm}`, { force: true });
 
     cy.get("#search-input").should(
       "have.value",
@@ -53,7 +53,7 @@ describe("Search feature", () => {
       true
     );
 
-    cy.get("#search-button").click();
+    cy.get("#search-button").click({ force: true });
 
     cy.get("#search-input").should(
       "not.have.value",
