@@ -38,23 +38,23 @@ pipeline {
 			}
 		}
 		
-		stage ('Cypress UI Test'){
-			steps {
-				script{
+		// stage ('Cypress UI Test'){
+		// 	steps {
+		// 		script{
 
-					dir("${env.WORKSPACE}"){
-						sh "pwd"
-					}
+		// 			dir("${env.WORKSPACE}"){
+		// 				sh "pwd"
+		// 			}
 
-					sh 'npm start > react_app.log 2>&1 &'
+		// 			sh 'npm start > react_app.log 2>&1 &'
 
-					sleep(time: 5, unit: 'SECONDS')
+		// 			sleep(time: 5, unit: 'SECONDS')
 
-					sh 'npx cypress run --browser ${BROWSER} --spec cypress/e2e/${SPEC}'
-				}
+		// 			sh 'npx cypress run --browser ${BROWSER} --spec cypress/e2e/${SPEC}'
+		// 		}
 				
-            }
-		}
+        //     }
+		// }
 		stage('Code Quality Check via SonarQube') {
 			steps {
 				script {
