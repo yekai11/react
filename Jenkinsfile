@@ -34,7 +34,7 @@ pipeline {
 		stage ('Cypress UI Test'){
 			steps {
 				echo pwd
-				sh 'cd client'
+				dir('client')
 				sh 'npm i'
 				sh 'npm start'
                 sh "npx cypress run --browser ${BROWSER} --spec ${SPEC}"
