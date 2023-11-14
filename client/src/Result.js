@@ -16,12 +16,12 @@ const Result = () => {
         alignItems: "center",
       }}
     >
-      {type == "search" ? (
+      {type === "search" ? (
         <>
           <h1>Result</h1>
-          <h2>{input}</h2>
+          <h2 id="search-result">{input}</h2>
           <a href="/">
-            <button>back</button>
+            <button id="back-button">back</button>
           </a>
         </>
       ) : (

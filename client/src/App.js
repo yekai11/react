@@ -53,13 +53,15 @@ function App() {
           }}
         >
           <h2>Search:</h2>
-          <input onChange={(e) => setInput(e.target.value)} />
-          <button type="submit">Search</button>
+          <input id="search-input" onChange={(e) => setInput(e.target.value)} />
+          <button id="search-button" type="submit">
+            Search
+          </button>
         </div>
       </form>
       <hr />
       <a href="/login">
-        <button>Login</button>
+        <button id="login-button">Login</button>
       </a>
     </div>
   );
