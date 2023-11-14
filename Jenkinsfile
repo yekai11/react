@@ -34,7 +34,9 @@ pipeline {
 		stage ('Cypress UI Test'){
 			steps {
 				echo pwd
-				dir('/var/jenkins_home/workspace/cypress-test/client')
+				dir('/var/jenkins_home/workspace/cypress-test/client'){
+					sh pwd
+				}
 				sh 'npm i'
 				sh 'npm start'
                 sh "npx cypress run --browser ${BROWSER} --spec ${SPEC}"
