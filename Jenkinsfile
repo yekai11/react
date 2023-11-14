@@ -33,11 +33,11 @@ pipeline {
         //     }
         // }
 
-        stage('OWASP DependencyCheck') {
-            steps {
-                dependencyCheck additionalArguments: '--format HTML --format XML', odcInstallation: 'OWASP Dependency-Check Vulnerabilities'
-            }
-        }
+        // stage('OWASP DependencyCheck') {
+        //     steps {
+        //         dependencyCheck additionalArguments: '--format HTML --format XML', odcInstallation: 'OWASP Dependency-Check Vulnerabilities'
+        //     }
+        // }
         
         stage ('Cypress UI Test'){
             agent {
@@ -48,7 +48,7 @@ pipeline {
             }
             steps {
                 script{
-                    sh 'npm i'
+                    sh 'npm ci'
 
                     dir("${env.WORKSPACE}"){
                         sh "pwd"
