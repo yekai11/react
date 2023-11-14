@@ -23,6 +23,7 @@ pipeline {
         string(name: 'SPEC', defaultValue: 'searchTest.cy.js')
         choice(name: 'BROWSER', choices: ['electron'], description: 'Pick the web browser you want to use to run your scripts')
     }
+
 	stages {
 		stage('Install dependencies'){
 			steps{
@@ -60,6 +61,7 @@ pipeline {
 				script {
 					def scannerHome = tool 'SonarQube';
 					withSonarQubeEnv('SonarQube') {
+					echo ${scannerHome}
 					sh "${scannerHome}/bin/sonar-scanner -Dsonar.projectKey=quiz -Dsonar.sources=."
 					}
 				}
